@@ -1,11 +1,8 @@
 @import url("content/menu.css");
 @import url("content/slider.css");
-@import url("content/aPropos.css");
 @import url("content/contact.css");
-@import url("content/monCompte.css");
 @import url("content/footer.css");
 @import url("content/connexion.css");
-@import url("content/produits.css");
 
 
 * {
@@ -77,10 +74,35 @@ main{
 }
 
 .titre {
-  font-size: 150%;
-  color: #54b454;
-  font-weight: 600;
+    font-size: 150%;
+    color: #54b454;
+    font-weight: 600;
 }
+
+.accroche {
+  font-size: 2rem;           
+  font-weight: 1000;        
+  color: #2f7e2f;            
+  text-align: center;       
+  margin: 40px 20px;        
+  line-height: 1.2;
+}
+
+.nav-links a {
+    color: #1d1d1d;      
+    font-size: 18px;     
+    font-weight: 700;    
+    text-decoration: none;
+    letter-spacing: 0.5px; 
+}
+
+.nav-links a:hover {
+    color: #2f7e2f;      
+    text-decoration: underline; 
+}
+
+
+
 
 .image {
  max-width: 100%;
@@ -159,4 +181,8 @@ li {
 
 .reussite{
     color:green;	
+}
+@font-face {
+  font-family: 'FontAwesome';
+  font-display: swap;
 }

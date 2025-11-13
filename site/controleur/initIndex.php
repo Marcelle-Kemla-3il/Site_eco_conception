@@ -1,52 +1,112 @@
 <?php
 
-	/* Connexion à la bdd */
-	$con = mysqli_connect("localhost", "root", "", "scierie");
+/* Connexion à la bdd */
+$con = mysqli_connect("localhost", "root", "", "scierie");
 
-	/* Gestion des erreurs de connexion */
-	if (mysqli_connect_errno()){
-		echo "Erreur de connexion: " . mysqli_connect_error();
-	}
+/* Gestion des erreurs de connexion */
+if (!$con) {
+    die("Erreur de connexion : " . mysqli_connect_error());
+}
 
-	mysqli_set_charset($con,"utf8");
+mysqli_set_charset($con, "utf8");
 
-	/* Requête SQL */
-	$sql = "SELECT home.titre, home.descr, home.img FROM home";
+/* Requête SQL */
+$sql = "SELECT titre, descr, img FROM home";
+$requete = mysqli_query($con, $sql);
 
-	/* Gestion des erreurs de requête sql */
-	if (!mysqli_query($con, $sql)){
-		echo "Création échouée" . mysqli_error($con);
-	}
+/* Vérification requête */
+if (!$requete) {
+    die("Erreur requête : " . mysqli_error($con));
+}
 
-	$requete = $con->query($sql);
+/* Affichage */
+while ($resultat = mysqli_fetch_assoc($requete)) {
 
-	while ($resultat = mysqli_fetch_array($requete))
-    {
-		$description = "<ul class='main-list'>";
-		if($resultat['titre']!='') {
-			$description .= "<li class='main-item'><p class='titre'>".$resultat['titre']."</p></li>";
-		}
-		if($resultat['descr']!='' && $resultat['img']!=''){
-			$description .= "<li class ='main-item'><ul class ='sub-list'>";
+    // Nettoyage → protection XSS
+    $titre = htmlspecialchars($resultat['titre']);
+    $descr = htmlspecialchars($resultat['descr']);
+    $img = htmlspecialchars($resultat['img']);
 
-			$description .= "<li class='sub-item'><p class='texte'>".$resultat['descr']."</p></li>";
+    echo "<ul class='main-list'>";
 
-			$description .= "<li class='sub-item'><img class='image' src='images/".$resultat['img']."'></li>";
-			
-			$description .= "</ul></li>";
-		
-		}else{
-			if($resultat['descr']!=''){
-				$description .= "<li class='main-item'><p class='texte'>".$resultat['descr']."</p></li>";
-			}
-			if($resultat['img']!=''){
-				$description .= "<li class='main-item'><img class='image' src='images/".$resultat['img']."'></li>";
-			}
-		}
-		$description .="</ul>";
-        echo $description;
+    if (!empty($titre)) {
+        echo "<li class='main-item'><p class='titre'>$titre</p></li>";
+    }
 
-	}
+    /* Image + texte */
+    if (!empty($descr) && !empty($img)) {
+        echo "<li class='main-item'><ul class='sub-list'>";
 
-	mysqli_close($con)
+        echo "<li class='sub-item'><p class='texte'>$descr</p></li>";
+
+        // Conversion WebP auto si existe
+        $imgPath = "images/$img";
+        $webpPath = "images/" . pathinfo($img, PATHINFO_FILENAME) . ".webp";
+
+        if (file_exists($webpPath)) {
+            echo "
+                <li class='sub-item'>
+                    <picture>
+                        <source srcset='$webpPath' type='image/webp'>
+                        <img class='image'
+                             src='$imgPath'
+                             loading='lazy'
+                             decoding='async'
+                             alt='$titre'>
+                    </picture>
+                </li>";
+        } else {
+            echo "
+                <li class='sub-item'>
+                    <img class='image'
+                         src='$imgPath'
+                         loading='lazy'
+                         decoding='async'
+                         alt='$titre'>
+                </li>";
+        }
+
+        echo "</ul></li>";
+    }
+    /* Seulement texte */
+    else {
+        if (!empty($descr)) {
+            echo "<li class='main-item'><p class='texte'>$descr</p></li>";
+        }
+
+        if (!empty($img)) {
+
+            $imgPath = "images/$img";
+            $webpPath = "images/" . pathinfo($img, PATHINFO_FILENAME) . ".webp";
+
+            if (file_exists($webpPath)) {
+                echo "
+                <li class='main-item'>
+                    <picture>
+                        <source srcset='$webpPath' type='image/webp'>
+                        <img class='image'
+                             src='$imgPath'
+                             loading='lazy'
+                             decoding='async'
+                             alt='$titre'>
+                    </picture>
+                </li>";
+            } else {
+                echo "
+                <li class='main-item'>
+                    <img class='image'
+                         src='$imgPath'
+                         loading='lazy'
+                         decoding='async'
+                         alt='$titre'>
+                </li>";
+            }
+        }
+    }
+
+    echo "</ul>";
+}
+
+mysqli_close($con);
+
 ?>

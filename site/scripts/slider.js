@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
 
     //  récupération des images du fichier xml
@@ -11,6 +10,10 @@ $(document).ready(function(){
 
 });
 
+
+/* --------------------------
+    DÉCALAGE ENTRE SLIDES
+---------------------------*/
 function decalageSlide(n){
     var idx, courant, suivant;
 
@@ -64,30 +67,77 @@ function decalageSlide(n){
     texteDescriptif.style.display = "block";
 }
 
+
+/* --------------------------
+    REMPLISSAGE DYNAMIQUE DU SLIDER
+---------------------------*/
 function recupXmlSlider(xml){
 
     $(xml).find("slide").each(function(){
 
-        $('#slider').append('<div class="slide"><img src="' + $(this).find("image").text() +  '"/><p class="texteDescriptif">' + $(this).find("description").text() + '</p></div>');
-    });
+        // Récupère l'image JPG
+        var jpgPath = $(this).find("image").text();
 
-    var slideIndex, slides, points, texteDescriptif;
+        // Transforme en WebP automatiquement
+        var webpPath = jpgPath.replace('.jpg', '.webp')
+                              .replace('.jpeg', '.webp');
+
+        // Injecte la slide optimisée (WebP + fallback + lazy loading)
+        $('#slider').append(`
+            <div class="slide">
+                <picture>
+                    <source srcset="${webpPath}" type="image/webp">
+                    <img 
+                        loading="lazy" 
+                        decoding="async" 
+                        src="${jpgPath}" 
+                        alt="slide" 
+                    >
+                </picture>
+                <p class="texteDescriptif">
+                    ${$(this).find("description").text()}
+                </p>
+            </div>
+        `);
+    });
 
     ImagesInit();
     setTimer();
 }
 
+
+/* --------------------------
+    NAVIGATION
+---------------------------*/
 function decalage(idx){
     decalageSlide(slideIndex + idx);
 }
 
+
+/* --------------------------
+    AUTOPLAY AVEC PAUSE SI ONGLET MASQUÉ
+---------------------------*/
 var timer = null;
+
 function setTimer() {
     timer = setInterval(function () {
         decalage(1);
-    },5900)
+    }, 5900);
 }
 
+// Éco-conception : pause si onglet pas visible
+document.addEventListener('visibilitychange', function() {
+    if (document.hidden) {
+        clearInterval(timer);
+    } else {
+        setTimer();
+    }
+});
+
+
+/* --------------------------
+    INITIALISATION SLIDER
+---------------------------*/
 function ImagesInit(){
 
     slideIndex=0;
@@ -98,7 +148,8 @@ function ImagesInit(){
 
     texteDescriptif = document.querySelector(".Descriptif .texteDescriptif");
 
-    texteDescriptif.innerText=slides[slideIndex].querySelector(".texteDescriptif").innerText;
+    texteDescriptif.innerText=slides[slideIndex]
+        .querySelector(".texteDescriptif").innerText;
 
     points=[];
 	
