@@ -3,45 +3,45 @@ session_start();
 require("../metier/DB_connector.php");
 require("../metier/User.php");
 require("../Dao/UserDao.php");
+//il faut vérifier que les champs du formulaire existent
+if (isset($_POST['idUtilCreation']) && isset($_POST['pwdCreation']) && isset($_POST['pwdBis'])) {
 
-if (isset($_GET['idUtilCreation']) || isset($_GET['pwdCreation']) || isset($_GET['pwdBis'])) {
 
-    $cnx = new DB_Connector();
-    $jeton = $cnx->openConnexion();
+	$cnx = new DB_Connector();
+	$jeton = $cnx->openConnexion();
 
-    $userManager = new UserDao($jeton);
+	$userManager = new UserDao($jeton);
 
-	$id = trim($_GET['idUtilCreation']);
-	$pwd = trim($_GET['pwdCreation']);
-	$pwdBis = trim($_GET['pwdBis']);
-    
+	$id = trim($_POST['idUtilCreation']);
+	$pwd = trim($_POST['pwdCreation']);
+	$pwdBis = trim($_POST['pwdBis']);
+
 	if (($userManager->idExist($id))) {
-		 $_SESSION['errId'] = "Cette identifiant est déjà utilisé";	
-		 $cnx->closeConnexion();
-		 header('Location:../connexion.php');
+		$_SESSION['errId'] = "Cette identifiant est déjà utilisé";
+		$cnx->closeConnexion();
+		header('Location:../connexion.php');
 	} else {
 		if ($pwd != $pwdBis) {
-			$_SESSION['errMdp'] = "Mot de passe non identique";	
+			$_SESSION['errMdp'] = "Mot de passe non identique";
 			$cnx->closeConnexion();
 			header('Location:../connexion.php');
-			
 		} else {
+			//hasher le mot de passe
+			$hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 			$newUser = new User([
 				'userId' => $id,
-				'userPwd' => $pwd
+				'userPwd' => $hashedPwd
 			]);
-		
+
 			if ($userManager->add($newUser)) {
-				 $_SESSION['creationOk'] = "Nouvel utilisateur créé";
-				 $cnx->closeConnexion();
-				 header('Location:../connexion.php');
+				$_SESSION['creationOk'] = "Nouvel utilisateur créé";
+				$cnx->closeConnexion();
+				header('Location:../connexion.php');
 			} else {
 				$_SESSION['creationNok'] = "Utilisateur non créé";
 				$cnx->closeConnexion();
 				header('Location:../connexion.php');
 			}
 		}
-	
 	}
 }
-?>

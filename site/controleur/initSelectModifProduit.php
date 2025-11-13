@@ -18,7 +18,7 @@ $produits = $produitManager->getList();
 $select = "  <div class='col-40'>           
 					<label for='lbProduitModif'>Libellé produit</label>
 				</div>	
-				<div class='col-40' id='selectNomProduit'>
+				<div class='col-40 dropdown-menu' id='selectNomProduit'>
 				 ";
 
 $select .= " <select id='lbProduitModif' name='lbProduitModif'>";
