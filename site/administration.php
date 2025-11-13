@@ -19,29 +19,8 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 
 <body>
 	<!-- MENU -->
-	<nav class="navbar navbar-expand-lg bg-white py-2 shadow mb-5">
-		<a class="navbar-brand d-flex align-items-center" href="#">
-			<img src="./images/scierieGood.webp" alt="Logo" style="height:50px; width:auto;">
-			<span class="ml-2 font-weight-bold text-dark">SCIERIE</span>
-		</a>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav ml-auto align-items-center">
-				<li class="nav-item"><a class="nav-link text-dark" href="index.php">ACCUEIL</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="produits.php">LES PRODUITS</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="video.php">VIDEO</a></li>
-				<li class="nav-item"><a class="nav-link text-dark" href="contact.php">NOUS CONTACTER</a></li>
-				<?php
-				if (isset($_SESSION['id'])) echo "<li class='nav-item'><a class='nav-link text-dark' href='administration.php'>ADMINISTRATION</a></li>";
-				if (isset($_SESSION['id'])) echo "<li class='nav-item'><a class='nav-link text-dark' href='deconnexion.php'>DECONNEXION</a></li>";
-				else echo "<li class='nav-item'><a class='nav-link' href='connexion.php'>CONNEXION</a></li>";
-				?>
-			</ul>
-		</div>
+	<?php include('components/header.php'); ?>
 
-	</nav>
 
 	<div class="container">
 

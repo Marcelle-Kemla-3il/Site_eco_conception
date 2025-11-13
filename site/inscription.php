@@ -18,27 +18,7 @@ function e($str) { return htmlspecialchars($str, ENT_QUOTES, 'UTF-8'); }
 
 <body class="bg-light">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-5">
-    <a class="navbar-brand" href="index.php"><img src="./images/scierieGood.webp" width="70" height="70" alt="Logo"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item"><a class="nav-link" href="index.php">ACCUEIL</a></li>
-            <li class="nav-item"><a class="nav-link" href="produits.php">LES PRODUITS</a></li>
-            <li class="nav-item"><a class="nav-link" href="video.php">VIDEO</a></li>
-            <li class="nav-item"><a class="nav-link" href="contact.php">NOUS CONTACTER</a></li>
-            <?php if (isset($_SESSION['id'])): ?>
-                <li class="nav-item"><a class="nav-link" href="administration.php">ADMINISTRATION</a></li>
-                <li class="nav-item"><a class="nav-link" href="deconnexion.php">DECONNEXION</a></li>
-            <?php else: ?>
-                <li class="nav-item"><a class="nav-link" href="connexion.php">CONNEXION</a></li>
-            <?php endif; ?>
-        </ul>
-    </div>
-</nav>
+<?php include('components/header.php'); ?>
 
 <div class="container">
     <div class="row justify-content-center">
@@ -88,7 +68,7 @@ function e($str) { return htmlspecialchars($str, ENT_QUOTES, 'UTF-8'); }
         </div>
     </div>
 </div>
-
+<?php include('components/footer.php'); ?>
 <!-- Bootstrap JS + jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
