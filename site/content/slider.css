@@ -234,3 +234,11 @@
 	text-align: center;
 	margin-top: 1%;
 }
+
+
+.slide img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
