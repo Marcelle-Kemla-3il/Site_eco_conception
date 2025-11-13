@@ -17,6 +17,7 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 </head>
 
 <body>
+<<<<<<< HEAD
 	<!-- MENU -->
 	<nav class="navbar navbar-expand-lg bg-white py-2 shadow mb-5">
     <a class="navbar-brand d-flex align-items-center" href="#">
@@ -39,6 +40,32 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
             ?>
         </ul>
     </div>
+=======
+<!--*************** MENU ***************-->
+<nav class="navbar">
+	<li class="toggle">
+		<ul class ="toggle-item"><i class="fa fa-bars menu" aria-hidden="true"> </i></ul>
+	</li>
+   <ul class="nav-links">
+      	<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
+      	<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
+	  	<li class="nav-item"><a href="video.php">VIDEO</a></li>
+<?php 
+	if (isset($_SESSION['id'])) {	
+		echo "<li class='nav-item'><a href='administration.php'>ADMINISTRATION</a></li>";
+	}
+	if(isset($_SESSION['id'])) {
+		echo "<li class='nav-item'><a href='deconnexion.php'>DECONNEXION</a></li>";
+	}else{
+		echo "<li class='nav-item'><a href='connexion.php'>CONNEXION</a></li>";
+	}
+?>
+    </ul>
+
+	<video autoplay muted loop playsinline style="width:70px; margin:5px;">
+   		<source src="./images/scierie.webm" type="video/webm">
+    </video>
+>>>>>>> 2de008bfbed163ae426bf5ad283e018bec65da63
 </nav>
 
 	<div class="container">
@@ -92,6 +119,7 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 					<button type="submit" class="btn btn-warning">Modifier</button>
 				</form>
 			</div>
+<<<<<<< HEAD
 		</div>
 
 		<!-- Suppression Produit -->
@@ -119,6 +147,45 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+=======
+		    </form>
+	</div>
+<!--*************** PIED DE PAGE ***************-->
+<footer id="footer">
+        <div class="footer-contact-container">
+            <div class="footer-contact-item email">
+                <h2>EMAIL</h2>
+                <p><a href="mailto:scierie.gineste@wanadoo.fr">scierie.gineste@wanadoo.fr</a></p>
+
+            <div class="footer-contact-item telephone">
+                <h2>TÉLÉPHONE</h2>
+                <p><a href="tel:+33970355409">+33 9 70 35 54 09</a></p>
+            </div>
+
+            <div class="footer-contact-item adresse">
+                <h2>ADRESSE</h2>
+                <ul>
+                    <li>Route de Rodez</li>
+                    <li>12220</li>
+                    <li>MONTBAZENS</li>
+                </ul>
+            </div>
+
+            <div class="footer-contact-item reseauxSociaux">
+                <h2>NOUS SUIVRE</h2>
+                <ul class="logo">
+                    <li class="facebook"><a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank"><img src="images/facebook.png" alt="Facebook" width="32" height="32" loading="lazy"></a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>©Projet 3iL - Site test</p>
+        </div>
+    </footer>
+<!--*************** PIED DE PAGE ***************-->
+	
+>>>>>>> 2de008bfbed163ae426bf5ad283e018bec65da63
 	<script src="scripts/initSelectModifProduit.js"></script>
 	<script src="scripts/initSelectModifAccueil.js"></script>
 	<script src="scripts/initSelectSuprProduit.js"></script>
