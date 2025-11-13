@@ -6,7 +6,9 @@ if (session_status() === PHP_SESSION_NONE) {
 <nav class="navbar navbar-expand-lg bg-white py-2 shadow-sm mb-4">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.php">
-            <img src="./images/scierieGood.webp" alt="Logo" style="height:45px; width:auto;">
+            <video autoplay muted loop playsinline style="width:70px; margin:5px;">
+                <source src="./images/scierie.webm" type="video/webm">
+            </video>
             <span class="ms-2 fw-bold text-dark">SCIERIE</span>
         </a>
 

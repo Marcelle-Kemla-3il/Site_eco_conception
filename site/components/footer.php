@@ -1,4 +1,4 @@
-<footer class="bg-success text-white pt-4 mt-5">
+<footer class=" text-white pt-4 mt-5" style="background-color:#2e7d32">
     <div class="container text-center text-md-start">
         <div class="row gy-4">
 
@@ -38,7 +38,7 @@
                 <a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/"
                    target="_blank"
                    class="d-inline-block text-white me-2">
-                    <img src="images/facebook.png" alt="Facebook" width="32" height="32" loading="lazy">
+                    <img src="images/facebook.webp" alt="Facebook" width="32" height="32" loading="lazy">
                 </a>
             </div>
         </div>

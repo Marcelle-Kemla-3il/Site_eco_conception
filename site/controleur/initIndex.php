@@ -1,11 +1,10 @@
 <?php
-
 /* Connexion à la bdd */
 $con = mysqli_connect("localhost", "root", "", "scierie");
 
 /* Gestion des erreurs de connexion */
 if (!$con) {
-    die("Erreur de connexion : " . mysqli_connect_error());
+    die("<div class='alert alert-danger text-center'>Erreur de connexion : " . mysqli_connect_error() . "</div>");
 }
 
 mysqli_set_charset($con, "utf8");
@@ -16,97 +15,64 @@ $requete = mysqli_query($con, $sql);
 
 /* Vérification requête */
 if (!$requete) {
-    die("Erreur requête : " . mysqli_error($con));
+    die("<div class='alert alert-danger text-center'>Erreur requête : " . mysqli_error($con) . "</div>");
 }
 
-/* Affichage */
+/* Affichage responsive */
+echo "<div class='container my-5'>";
+echo "<div class='row gy-4'>"; // gy-4 = espace vertical entre les lignes
+
 while ($resultat = mysqli_fetch_assoc($requete)) {
 
-    // Nettoyage → protection XSS
     $titre = htmlspecialchars($resultat['titre']);
     $descr = htmlspecialchars($resultat['descr']);
     $img = htmlspecialchars($resultat['img']);
 
-    echo "<ul class='main-list'>";
+    // Gestion des images
+    $imgPath = "images/$img";
+    $webpPath = "images/" . pathinfo($img, PATHINFO_FILENAME) . ".webp";
 
+    if (!empty($img) && file_exists($webpPath)) {
+        $imgSrc = $webpPath;
+    } else {
+        $imgSrc = $imgPath;
+    }
+
+    echo "
+        <div class='col-12 col-md-6 col-lg-4'>
+            <div class='card h-100 shadow-sm border-0'>
+    ";
+
+    // Image
+    if (!empty($img)) {
+        echo "
+            <img src='$imgSrc' class='card-img-top img-fluid rounded-top' alt='$titre' loading='lazy' decoding='async'>
+        ";
+    }
+
+    echo "
+                <div class='card-body'>
+        ";
+
+    // Titre
     if (!empty($titre)) {
-        echo "<li class='main-item'><p class='titre'>$titre</p></li>";
+        echo "<h5 class='card-title text-success fw-bold'>$titre</h5>";
     }
 
-    /* Image + texte */
-    if (!empty($descr) && !empty($img)) {
-        echo "<li class='main-item'><ul class='sub-list'>";
-
-        echo "<li class='sub-item'><p class='texte'>$descr</p></li>";
-
-        // Conversion WebP auto si existe
-        $imgPath = "images/$img";
-        $webpPath = "images/" . pathinfo($img, PATHINFO_FILENAME) . ".webp";
-
-        if (file_exists($webpPath)) {
-            echo "
-                <li class='sub-item'>
-                    <picture>
-                        <source srcset='$webpPath' type='image/webp'>
-                        <img class='image'
-                             src='$imgPath'
-                             loading='lazy'
-                             decoding='async'
-                             alt='$titre'>
-                    </picture>
-                </li>";
-        } else {
-            echo "
-                <li class='sub-item'>
-                    <img class='image'
-                         src='$imgPath'
-                         loading='lazy'
-                         decoding='async'
-                         alt='$titre'>
-                </li>";
-        }
-
-        echo "</ul></li>";
-    }
-    /* Seulement texte */
-    else {
-        if (!empty($descr)) {
-            echo "<li class='main-item'><p class='texte'>$descr</p></li>";
-        }
-
-        if (!empty($img)) {
-
-            $imgPath = "images/$img";
-            $webpPath = "images/" . pathinfo($img, PATHINFO_FILENAME) . ".webp";
-
-            if (file_exists($webpPath)) {
-                echo "
-                <li class='main-item'>
-                    <picture>
-                        <source srcset='$webpPath' type='image/webp'>
-                        <img class='image'
-                             src='$imgPath'
-                             loading='lazy'
-                             decoding='async'
-                             alt='$titre'>
-                    </picture>
-                </li>";
-            } else {
-                echo "
-                <li class='main-item'>
-                    <img class='image'
-                         src='$imgPath'
-                         loading='lazy'
-                         decoding='async'
-                         alt='$titre'>
-                </li>";
-            }
-        }
+    // Description
+    if (!empty($descr)) {
+        echo "<p class='card-text text-muted'>$descr</p>";
     }
 
-    echo "</ul>";
+    echo "
+                </div>
+            </div>
+        </div>
+    ";
 }
 
-mysqli_close($con);
+echo "</div>"; // row
+echo "</div>"; // container
 
+mysqli_close($con);
 ?>
