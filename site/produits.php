@@ -60,10 +60,13 @@ $produits = $produitManager->getList();
 <main class="container my-5">
   <h1 class="text-center mb-4">Nos Produits Écologiques</h1>
   <div class="row row-cols-1 row-cols-md-3 g-4">
-    <?php foreach($produits as $produit): ?>
+    <?php foreach($produits as $produit): 
+        // Assure que le nom du fichier se termine par .webp
+        $img = pathinfo($produit->getImg(), PATHINFO_FILENAME) . '.webp';
+    ?>
       <div class="col">
         <div class="card h-100 border-0 shadow-sm">
-          <img src="images/<?php echo htmlspecialchars($produit->getImg()); ?>" 
+          <img src="images/<?php echo htmlspecialchars($img); ?>" 
                class="card-img-top" 
                alt="<?php echo htmlspecialchars($produit->getTitre()); ?>" 
                width="300" height="200"
@@ -91,3 +94,5 @@ $produits = $produitManager->getList();
 
 </body>
 </html>
+
+
