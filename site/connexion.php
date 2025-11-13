@@ -15,33 +15,27 @@ function e($str) { return htmlspecialchars($str, ENT_QUOTES, 'UTF-8'); }
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
           crossorigin="anonymous">
 </head>
-
-<body>
-
-	<section>
-<!--*************** MENU ***************-->
-<nav class="navbar">
-	<li class="toggle">
-		<ul class ="toggle-item"><i class="fa fa-bars menu" aria-hidden="true"> </i></ul>
-	</li>
-   <ul class="nav-links">
-      	<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
-      	<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
-	  	<li class="nav-item"><a href="video.php">VIDEO</a></li>
-		<li class="nav-item"><a href="contact.php">NOUS CONTACTER</a></li>
-<?php 
-	if (isset($_SESSION['id'])) {	
-		echo "<li class='nav-item'><a href='administration.php'>ADMINISTRATION</a></li>";
-	}
-	if(isset($_SESSION['id'])) {
-		echo "<li class='nav-item'><a href='deconnexion.php'>DECONNEXION</a></li>";
-	}else{
-		echo "<li class='nav-item'><a href='connexion.php'>CONNEXION</a></li>";
-	}
-?>
-    </ul>
-
-	<img src="./images/scierie.gif" style="width:70px; margin:5px;">
+<body class="bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm mb-5">
+    <a class="navbar-brand" href="index.php"><img src="./images/scierieGood.webp" width="70" height="70" alt="Logo"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="index.php">ACCUEIL</a></li>
+            <li class="nav-item"><a class="nav-link" href="produits.php">LES PRODUITS</a></li>
+            <li class="nav-item"><a class="nav-link" href="video.php">VIDEO</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact.php">NOUS CONTACTER</a></li>
+            <?php if (isset($_SESSION['id'])): ?>
+                <li class="nav-item"><a class="nav-link" href="administration.php">ADMINISTRATION</a></li>
+                <li class="nav-item"><a class="nav-link" href="deconnexion.php">DECONNEXION</a></li>
+            <?php else: ?>
+                <li class="nav-item"><a class="nav-link" href="connexion.php">CONNEXION</a></li>
+            <?php endif; ?>
+        </ul>
+    </div>
 </nav>
 <div class="container">
     <div class="row justify-content-center">
@@ -90,31 +84,8 @@ function e($str) { return htmlspecialchars($str, ENT_QUOTES, 'UTF-8'); }
     </div>
 </div>
 
-<!--*************** PIED DE PAGE ***************-->
-<footer id="footer">
-<ul class="footer-links">
-    <li class="footer-item">©Projet 3iL</li>
-    <li class="footer-item"><a href="#" target="_blank"><img id="logo" src="images/facebook.png"></a></li>
-    <li class="footer-item">Site test</li>
-<ul/>
-</footer>
-<!--*************** PIED DE PAGE ***************-->
-
-	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-	<script type="text/javascript">
-	$(document).ready(function(){
-	      $('.onglet a').on('click', function (e) {
-	      e.preventDefault();
-	       
-	      $(this).parent().addClass('active');
-	      $(this).parent().siblings().removeClass('active');
-	       
-	      var href = $(this).attr('href');
-	      $('.forms > form').hide();
-	      $(href).fadeIn(333);
-	    });
-	});
-</script>
-
+<!-- Bootstrap JS + jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
