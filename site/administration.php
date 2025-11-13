@@ -28,7 +28,6 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
       	<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
       	<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
 	  	<li class="nav-item"><a href="video.php">VIDEO</a></li>
-		<li class="nav-item"><a href="contact.php">NOUS CONTACTER</a></li>
 <?php 
 	if (isset($_SESSION['id'])) {	
 		echo "<li class='nav-item'><a href='administration.php'>ADMINISTRATION</a></li>";
@@ -41,7 +40,9 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 ?>
     </ul>
 
-	<img src="./images/scierie.gif" style="width:70px; margin:5px;">
+	<video autoplay muted loop playsinline style="width:70px; margin:5px;">
+   		<source src="./images/scierie.webm" type="video/webm">
+    </video>
 </nav>
 
 
@@ -194,12 +195,37 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 	</div>
 <!--*************** PIED DE PAGE ***************-->
 <footer id="footer">
-<ul class="footer-links">
-    <li class="footer-item">©Projet 3iL</li>
-    <li class="footer-item"><a href="#" target="_blank"><img id="logo" src="images/facebook.png"></a></li>
-    <li class="footer-item">Site test</li>
-<ul/>
-</footer>
+        <div class="footer-contact-container">
+            <div class="footer-contact-item email">
+                <h2>EMAIL</h2>
+                <p><a href="mailto:scierie.gineste@wanadoo.fr">scierie.gineste@wanadoo.fr</a></p>
+
+            <div class="footer-contact-item telephone">
+                <h2>TÉLÉPHONE</h2>
+                <p><a href="tel:+33970355409">+33 9 70 35 54 09</a></p>
+            </div>
+
+            <div class="footer-contact-item adresse">
+                <h2>ADRESSE</h2>
+                <ul>
+                    <li>Route de Rodez</li>
+                    <li>12220</li>
+                    <li>MONTBAZENS</li>
+                </ul>
+            </div>
+
+            <div class="footer-contact-item reseauxSociaux">
+                <h2>NOUS SUIVRE</h2>
+                <ul class="logo">
+                    <li class="facebook"><a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank"><img src="images/facebook.png" alt="Facebook" width="32" height="32" loading="lazy"></a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>©Projet 3iL - Site test</p>
+        </div>
+    </footer>
 <!--*************** PIED DE PAGE ***************-->
 	
 	<script src="scripts/initSelectModifProduit.js"></script>
