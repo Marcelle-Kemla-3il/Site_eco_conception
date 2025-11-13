@@ -81,16 +81,44 @@ $produits = $produitManager->getList();
   </div>
 </main>
 
-<!-- Footer -->
-<footer class="bg-dark text-white text-center py-3">
-  <div class="container">
-    <p>© Projet 3iL</p>
-    <a href="#" target="_blank" aria-label="Facebook">
-      <img src="images/facebook.webp" alt="Facebook" width="24" height="24" loading="lazy">
-    </a>
-    <span>Site test</span>
-  </div>
-</footer>
+
+
+<!--*************** PIED DE PAGE ***************-->
+<footer id="footer">
+        <div class="footer-contact-container">
+            <div class="footer-contact-item email">
+                <h2>EMAIL</h2>
+                <p><a href="mailto:scierie.gineste@wanadoo.fr">scierie.gineste@wanadoo.fr</a></p>
+            </div>
+
+            <div class="footer-contact-item telephone">
+                <h2>TÉLÉPHONE</h2>
+                <p><a href="tel:+33970355409">+33 9 70 35 54 09</a></p>
+            </div>
+
+            <div class="footer-contact-item adresse">
+                <h2>ADRESSE</h2>
+                <ul>
+                    <li>Route de Rodez</li>
+                    <li>12220</li>
+                    <li>MONTBAZENS</li>
+                </ul>
+            </div>
+
+            <div class="footer-contact-item reseauxSociaux">
+                <h2>NOUS SUIVRE</h2>
+                <ul class="logo">
+                    <li class="facebook"><a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank"><img src="images/facebook.png" alt="Facebook" width="32" height="32" loading="lazy"></a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>©Projet 3iL - Site test</p>
+        </div>
+    </footer>
+<!--*************** PIED DE PAGE ***************-->
+
 
 </body>
 </html>
